@@ -1,19 +1,17 @@
 trigger:
-- main  # or your default branch
+- main
 
 pool:
-  name: 'MySelfHostedPool'   # We will create this pool in the next steps
+  name: 'MySelfHostedPool'
+
 steps:
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
+    goals: 'clean package'           # Change to 'clean install' if your project needs it
+    javaHomeOption: 'Path'           # Use the system's Java
+    jdkDirectory: '$(JAVA_HOME)'     # This points to your Java 21
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.17'  # or 11/21 depending on your project
-    jdkArchitectureOption: 'x64'
-    goals: 'clean package'   # Change to clean install / test etc. as needed
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    
-
-
+  displayName: 'Maven Build with Java 21'
