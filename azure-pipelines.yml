@@ -2,8 +2,7 @@ trigger:
 - main  # or your default branch
 
 pool:
-  vmImage: 'ubuntu-latest'  # Microsoft-hosted agent
-
+  name: 'MySelfHostedPool'   # We will create this pool in the next steps
 steps:
 - task: Maven@4
   inputs:
